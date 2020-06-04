@@ -20,13 +20,16 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Initialize the main project folder
-app.use(express.static('website'));
+app.use(express.static('dist'));
 
 // Setup Server
 const port = 8000;
-const server = app.listen(port, () => console.log(`server up and running on localhost:${port}`));
+app.listen(port, () => console.log(`server up and running on localhost:${port}`));
 
 // GET and POST route handlers
+app.get('/', function (req, res) {
+    res.sendFile('dist/index.html');
+});
 app.get('/all', function getHandler(request, response) {
     response.send(projectData);
 });
