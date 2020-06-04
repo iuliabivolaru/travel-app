@@ -23,7 +23,7 @@ app.use(cors());
 app.use(express.static('dist'));
 
 // Setup Server
-const port = 8000;
+const port = 8080;
 app.listen(port, () => console.log(`server up and running on localhost:${port}`));
 
 // GET and POST route handlers
