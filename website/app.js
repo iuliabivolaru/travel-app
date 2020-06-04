@@ -1,12 +1,7 @@
 /* Global Variables */
 const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 const apiKey = '&appid=2ce7c639a23cd64116b67d37126b24dd';
-// document.getElementById('generate').addEventListener('click', populateAndGetWeatherData);
-
-function handleSubmit(event) {
-    event.preventDefault();
-    populateAndGetWeatherData();
-}
+document.getElementById('generate').addEventListener('click', populateAndGetWeatherData);
 
 function updateUI(data, usersFeelings) {
     document.getElementById('date').innerHTML = 'Current date: ' + todaysDate;
@@ -58,5 +53,3 @@ const postWeatherData = async (url = '', data = {}) => {
 // Create a new date instance dynamically with JS
 let d = new Date();
 let todaysDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
-
-export { handleSubmit }
