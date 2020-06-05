@@ -37,9 +37,9 @@ app.get('/all', function getHandler(request, response) {
 app.post('/addWeatherData', function postHandler(request, response) {
     let body = request.body;
     weatherData = {
-        perceivedTemperature: body.temperature,
-        content: body.usersFeelings,
-        date: body.date
+        lat: body.latitude,
+        lng: body.longitude,
+        country: body.country
     };
     receivedDataArray.push(weatherData);
     response.send({post: "successful"});

@@ -1,7 +1,6 @@
 /* Global Variables */
-const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey = '&appid=2ce7c639a23cd64116b67d37126b24dd';
-// document.getElementById('generate').addEventListener('click', populateAndGetWeatherData);
+const baseUrl = 'http://api.geonames.org/searchJSON?name=';
+const username = 'iulia.bivolaru';
 
 function handleSubmit(event) {
     event.preventDefault();
@@ -9,27 +8,31 @@ function handleSubmit(event) {
 }
 
 function updateUI(data, usersFeelings) {
-    document.getElementById('date').innerHTML = 'Current date: ' + todaysDate;
-    document.getElementById('temp').innerHTML = 'Feels-like temperature: ' + data.main.feels_like;
-    document.getElementById('content').innerHTML = 'Your feelings: ' + usersFeelings; 
+    document.getElementById('country').innerHTML = 'Country: ' + data.geonames[0].countryName;
+    document.getElementById('lat').innerHTML = 'Latitude: ' + data.geonames[0].lat;
+    document.getElementById('lng').innerHTML = 'Longitude: ' + data.geonames[0].lng;
 }
 
 function populateAndGetWeatherData() {
     const zipCode = document.getElementById('zip').value;
     const countryCode = document.getElementById('country').value;
     const usersFeelings = document.getElementById('feelings').value;
-    getWeatherData(baseUrl, zipCode, countryCode, apiKey)
+    getWeatherData(baseUrl, zipCode)
         .then(data => {
+            console.log('dataaa');
+            console.log(data);
             postWeatherData('/addWeatherData', 
-            { temperature: data.main.feels_like,
-              usersFeelings,
-              date: todaysDate });
+            { latitude: data.geonames[0].lat,
+              longitude: data.geonames[0].lng,
+              country: data.geonames[0].countryName });
             updateUI(data, usersFeelings);                     
         });
 }
 
-const getWeatherData = async (baseUrl, zipCode, countryCode, apiKey) => {
-    const response = await fetch(baseUrl + zipCode + "," + countryCode + apiKey);
+const getWeatherData = async (baseUrl, zipCode) => {
+    console.log('url');
+    console.log(baseUrl + zipCode + '&username=' + username);
+    const response = await fetch(baseUrl + zipCode + '&maxRows=1' + '&username=' + username);
     try {
         const data = await response.json();
         return data;
