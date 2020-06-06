@@ -45,3 +45,4 @@ app.post('/addWeatherData', function postHandler(request, response) {
     response.send({post: "successful"});
     console.log(receivedDataArray);
 });
+
