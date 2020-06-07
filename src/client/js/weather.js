@@ -37,7 +37,7 @@ function populateAndGetWeatherData() {
             getWeatherData(weatherBaseUrl, data.geonames[0].lat, data.geonames[0].lng)
                 .then(data => updateUIWithWeather(data));          
         });
-        getPixabayData(pixabayBaseUrl, pixabayAppKey, zipCode)
+        getPixabayData(pixabayBaseUrl, zipCode)
             .then(data => {
                 console.log('data pixabay');
                 console.log(data);
@@ -69,7 +69,7 @@ const getGeoData = async (baseUrl, zipCode) => {
     }
 }
 
-const getPixabayData = async (pixabayBaseUrl, pixabayAppKey, q) => {
+const getPixabayData = async (pixabayBaseUrl, q) => {
     console.log('url');
     console.log(pixabayBaseUrl + pixabayAppKey + '&q=' + q);
     const response = await fetch(pixabayBaseUrl + pixabayAppKey + '&q=' + q);
