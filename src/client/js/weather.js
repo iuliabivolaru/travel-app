@@ -19,12 +19,19 @@ function updateUI(data) {
 }
 
 function updateUIWithWeather(data) {
-    document.getElementById('max_temp').innerHTML = 'Max temp: ' + data.data[0].max_temp;
-    document.getElementById('min_temp').innerHTML = 'Min temp: ' + data.data[0].min_temp;
+    if(data[0]) {
+        document.getElementById('max_temp').innerHTML = 'Max temp: ' + data[0].max_temp;
+        document.getElementById('min_temp').innerHTML = 'Min temp: ' + data[0].min_temp;
+    } else {
+        document.getElementById('max_temp').innerHTML = 'Date too far away for a weather forecast';
+    }
 }
 
 function populateAndGetWeatherData() {
-    const zipCode = document.getElementById('zip').value;
+    const zipCode = document.getElementById('zip').value.trim();
+    console.log('datee');
+    const dat = document.getElementById('start-date').value;
+console.log(dat);
     getGeoData(baseUrl, zipCode)
         .then(data => {
             console.log('dataaa');
@@ -48,10 +55,26 @@ function populateAndGetWeatherData() {
 const getWeatherData = async (weatherBaseUrl, lat, lng) => {
     console.log('url');
     console.log(weatherBaseUrl + lat + '&lon=' + lng + '&key=' + weatherAppKey);
+    const dat = document.getElementById('start-date').value;
+    const dt1 = new Date();
+    const dt2 = new Date(dat);
+    const numberOfDays = Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+    document.getElementById('countdown').innerHTML = numberOfDays + ' days until your trip';
     const response = await fetch(weatherBaseUrl + lat + '&lon=' + lng + '&key=' + weatherAppKey);
     try {
         const data = await response.json();
-        return data;
+        console.log('weatheeer data');
+        console.log(data);
+        const filteredData = data.data.filter(element => {
+            console.log('in filter');
+            console.log(element.datetime);
+            console.log(dat);
+            console.log(element.datetime == dat);
+            return element.datetime == dat
+        });
+        console.log('filteredData');
+        console.log(filteredData);
+        return filteredData;
     } catch(error) {
         console.log(error);
     }
@@ -98,8 +121,10 @@ const postWeatherData = async (url = '', data = {}) => {
     }
 }
 
-// Create a new date instance dynamically with JS
-let d = new Date();
-let todaysDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+const date_diff_indays = function(dt1, date2) {
+    dt1 = new Date();
+    dt2 = new Date(date2);
+    return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+    }
 
 export { handleSubmit }

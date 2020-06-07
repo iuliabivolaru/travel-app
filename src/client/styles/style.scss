@@ -11,7 +11,7 @@ body{
     justify-items: center;
     grid-template-areas: "headline headline"
                          "zip zip"
-                         "country country"
+                         "start-date start-date"
                          "feel feel"
                          "button button"
                          "entry entry";
@@ -29,8 +29,8 @@ body{
     grid-area: zip;
 }
 
-.country {
-    grid-area: country;
+.start-date {
+    grid-area: start-date;
 }
 
 .feel {
