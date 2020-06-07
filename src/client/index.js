@@ -10,13 +10,14 @@ export {
 }
 
 
-// put api calls in index js server side
 // create other js files maybe
-// refactor - cleanup js and html
+// refactor - cleanup html and css
 // implement additional functionality - add length of the trip
 // date validation - sa nu fie mai mica decat current date - de pus la loc <div id="invalid-date"></div>
 // si de repus invalid
-// write tests - add jest
+// do the post
+// style results area;
+// write some tests - add jest
 // do styling 
 // write readme
 // add service workers
