@@ -9,7 +9,30 @@ const pixabayBaseUrl = 'https://pixabay.com/api/?key=';
 
 function handleSubmit(event) {
     event.preventDefault();
-    populateAndGetWeatherData();
+    const forms = document.getElementsByClassName('needs-validation');
+    console.log('form validity');
+    console.log(Client.validateForm());
+    var validation = Array.prototype.filter.call(forms, function(form) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          } else if((document.getElementById('start-date').value != '' && 
+          date_diff_indays(document.getElementById('start-date').value) < 0)) {
+              console.log('date too small');
+            // document.getElementById('invalid-date').innerHTML = 'Date must be bigger than current date';
+            // document.getElementById('invalid-date').classList.add('invalid-feedback');
+          } else {
+            populateAndGetWeatherData();
+          }
+          form.classList.add('was-validated');
+    });
+    if (!Client.validateForm()) {
+        // form.classList.add('was-validated');
+        // event.preventDefault();
+        // event.stopPropagation();
+    }
+    // populateAndGetWeatherData();
+    // event.preventDefault();
 }
 
 function updateUI(data) {
@@ -121,10 +144,10 @@ const postWeatherData = async (url = '', data = {}) => {
     }
 }
 
-const date_diff_indays = function(dt1, date2) {
-    dt1 = new Date();
-    dt2 = new Date(date2);
+const date_diff_indays = function(date) {
+    const dt1 = new Date();
+    const dt2 = new Date(date);
     return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
-    }
+}
 
 export { handleSubmit }
