@@ -7,12 +7,13 @@ export {
 
 
 
-// add keys to env file; add env file to gitignore
+// put api calls in index js server side
 // create other js files maybe
 // refactor - cleanup js and html
 // implement additional functionality
-// fields validation
+// fields validation - pt date input - sa fie non empty si valida
 // write tests - add jest
 // do styling 
-// add bootstrap
+// add bootstrap - poate sau din roadtrip
 // write readme
+// add service workers
