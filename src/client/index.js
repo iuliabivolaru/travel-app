@@ -17,6 +17,7 @@ export {
 // si de repus invalid
 // do the post
 // style results area;
+// maybe responsiveness
 // write some tests - add jest
 // do styling 
 // write readme
