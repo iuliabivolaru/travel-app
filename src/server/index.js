@@ -34,12 +34,14 @@ app.get('/all', function getHandler(request, response) {
     response.send(projectData);
 });
 
-app.post('/addWeatherData', function postHandler(request, response) {
+app.post('/geoAndWeatherData', function postHandler(request, response) {
     let body = request.body;
     weatherData = {
         lat: body.latitude,
         lng: body.longitude,
-        country: body.country
+        country: body.country,
+        maxTemp: body.maxTemp,
+        minTemp: body.minTemp
     };
     receivedDataArray.push(weatherData);
     response.send({post: "successful"});

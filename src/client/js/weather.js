@@ -47,12 +47,20 @@ function populateAndGetWeatherData() {
     const destinationCity = document.getElementById('destination').value.trim();
     getGeoData(baseUrl, destinationCity)
         .then(data => {
-            postGeoData('/addWeatherData', 
-            { latitude: data.geonames[0].lat,
-              longitude: data.geonames[0].lng,
-              country: data.geonames[0].countryName });
-            getWeatherData(weatherBaseUrl, data.geonames[0].lat, data.geonames[0].lng)
-                .then(data => updateUIWithWeather(data));          
+            const lat = data.geonames[0].lat;
+            const lng = data.geonames[0].lng;
+            const countryName = data.geonames[0].countryName;
+            getWeatherData(weatherBaseUrl, lat, lng)
+                .then(data => {
+                    updateUIWithWeather(data);
+                    postWeatherAndGeoData('/geoAndWeatherData', 
+                        { latitude: lat,
+                          longitude: lng,
+                          country: countryName,
+                          maxTemp: data[0] ? data[0].max_temp : '',
+                          minTemp: data[0] ? data[0].min_temp : ''
+                        });
+                });          
         });
         getPixabayData(pixabayBaseUrl, destinationCity)
             .then(data => {
@@ -95,7 +103,7 @@ const getPixabayData = async (pixabayBaseUrl, q) => {
     }
 }
 
-const postGeoData = async (url = '', data = {}) => {
+const postWeatherAndGeoData = async (url = '', data = {}) => {
     const response = await fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
