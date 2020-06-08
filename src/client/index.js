@@ -14,7 +14,7 @@ export {
 // refactor - cleanup html and css - rename
 // implement additional functionality - add length of the trip
 // date validation - sa nu fie mai mica decat current date - de pus la loc <div id="invalid-date"></div>
-// si de repus invalid
+// si de repus invalid - poate!
 // style results area;
 // coment code daca e cazul
 // poate specificat in readme additional feature

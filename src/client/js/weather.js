@@ -126,4 +126,4 @@ const datesDifferenceInDays = function(date) {
     return Math.floor((Date.UTC(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()) - Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) ) /(1000 * 60 * 60 * 24));
 }
 
-export { handleSubmit }
+export { handleSubmit, postWeatherAndGeoData }

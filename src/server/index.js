@@ -31,7 +31,7 @@ app.get('/', function (req, res) {
     res.sendFile('dist/index.html');
 });
 app.get('/all', function getHandler(request, response) {
-    response.send(projectData);
+    response.send(receivedDataArray);
 });
 
 app.post('/geoAndWeatherData', function postHandler(request, response) {
