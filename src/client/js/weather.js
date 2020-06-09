@@ -9,36 +9,24 @@ const pixabayBaseUrl = 'https://pixabay.com/api/?key=';
 function handleSubmit(event) {
     event.preventDefault();
     const forms = document.getElementsByClassName('needs-validation');
-    console.log('form validity');
-    console.log(Client.validateForm());
-    var validation = Array.prototype.filter.call(forms, function(form) {
-          if (form.checkValidity() === false) {
+    Array.prototype.filter.call(forms, function(form) {
+        if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-          } else if((document.getElementById('start-date').value != '' && 
-          datesDifferenceInDays(document.getElementById('start-date').value) < 0)) {
-              console.log('date too small');
-            // document.getElementById('invalid-date').innerHTML = 'Date must be bigger than current date';
-            // document.getElementById('invalid-date').classList.add('invalid-feedback');
-          } else {
-            if(document.getElementById('end-date').value != '') {
-                document.getElementById('trip-length').innerHTML = datesDifferenceInDays2
-                (document.getElementById('start-date').value, document.getElementById('end-date').value);
-            }
-            populateAndGetWeatherData();
-          }
-          form.classList.add('was-validated');
+        } else {
+            getGeoAndWeatherAndImageDataAndUpdateUI();
+        }
+            form.classList.add('was-validated');
     });
-    if (!Client.validateForm()) {
-        // form.classList.add('was-validated');
-        // event.preventDefault();
-        // event.stopPropagation();
-    }
-    // populateAndGetWeatherData();
-    // event.preventDefault();
 }
 
-function updateUIWithWeather(data) {
+function updateUIWithCountdownAndTripLengthAndWeatherInfo(data) {
+    const startDate = document.getElementById('start-date').value;
+    const endDate = document.getElementById('end-date').value;
+    document.getElementById('countdown').innerHTML = datesDifferenceInDays('', startDate) + ' days until your trip';
+    if(endDate != '') {
+        document.getElementById('trip-length').innerHTML = 'It\'s a ' + datesDifferenceInDays(startDate, endDate) + ' days vacation!';
+    }
     if(data[0]) {
         document.getElementById('max_temp').innerHTML = 'Max temp: ' + data[0].max_temp;
         document.getElementById('min_temp').innerHTML = 'Min temp: ' + data[0].min_temp;
@@ -47,7 +35,7 @@ function updateUIWithWeather(data) {
     }
 }
 
-function populateAndGetWeatherData() {
+function getGeoAndWeatherAndImageDataAndUpdateUI() {
     const destinationCity = document.getElementById('destination').value.trim();
     getGeoData(baseUrl, destinationCity)
         .then(data => {
@@ -56,7 +44,7 @@ function populateAndGetWeatherData() {
             const countryName = data.geonames[0].countryName;
             getWeatherData(weatherBaseUrl, lat, lng)
                 .then(data => {
-                    updateUIWithWeather(data);
+                    updateUIWithCountdownAndTripLengthAndWeatherInfo(data);
                     postWeatherAndGeoData('/geoAndWeatherData', 
                         { latitude: lat,
                           longitude: lng,
@@ -76,8 +64,6 @@ function populateAndGetWeatherData() {
 
 const getWeatherData = async (weatherBaseUrl, lat, lng) => {
     const startDate = document.getElementById('start-date').value;
-    const numberOfDays = datesDifferenceInDays(startDate);
-    document.getElementById('countdown').innerHTML = numberOfDays + ' days until your trip';
     const response = await fetch(weatherBaseUrl + lat + '&lon=' + lng + '&key=' + weatherAppKey);
     try {
         const data = await response.json();
@@ -124,14 +110,8 @@ const postWeatherAndGeoData = async (url = '', data = {}) => {
     }
 }
 
-const datesDifferenceInDays = function(date) {
-    const currentDate = new Date();
-    const givenDate = new Date(date);
-    return Math.floor((Date.UTC(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()) - Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) ) /(1000 * 60 * 60 * 24));
-}
-
-const datesDifferenceInDays2 = function(date, date2) {
-    const givenDate = new Date(date);
+const datesDifferenceInDays = function(date, date2) {
+    const givenDate = date ? new Date(date) : new Date();
     const givenDate2 = new Date(date2);
     return Math.floor((Date.UTC(givenDate2.getFullYear(), givenDate2.getMonth(), givenDate2.getDate()) - Date.UTC(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()) ) /(1000 * 60 * 60 * 24));
 }
