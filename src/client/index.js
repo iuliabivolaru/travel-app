@@ -9,11 +9,9 @@ export {
 
 
 
-// do styling - style results area;
 // responsiveness
 // add service workers
 // comment code daca e cazul
-// de specificat in readme additional feature
 
 // refactor - cleanup html and css - rename
 // date validation - sa nu fie mai mica decat current date - de pus la loc <div id="invalid-date"></div>

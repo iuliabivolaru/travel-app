@@ -23,13 +23,6 @@ form {
     grid-area: destination;
 }
 
-.results {
-    min-width: 500px;
-    background: rgba(59, 74, 107, .4);
-    margin-bottom: 20px;
-    grid-area: results;
-}
-
 .headline {
     margin: 20px 0;
     font-size: 27px;
@@ -56,7 +49,22 @@ h1 {
     font-size: 36px;
 }
 
+.results {
+    min-width: 500px;
+    margin-bottom: 40px;
+    grid-area: results;
+    display: flex;
+    justify-content: center;
+}
+
 .city-image {
     width: 640px;
     height: 318px;
+}
+
+.trip-info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 20px;
 }

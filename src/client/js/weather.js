@@ -28,8 +28,10 @@ function updateUIWithCountdownAndTripLengthAndWeatherInfo(data) {
         document.getElementById('trip-length').innerHTML = 'It\'s a ' + datesDifferenceInDays(startDate, endDate) + ' days vacation!';
     }
     if(data[0]) {
-        document.getElementById('max_temp').innerHTML = 'Max temp: ' + data[0].max_temp;
-        document.getElementById('min_temp').innerHTML = 'Min temp: ' + data[0].min_temp;
+        document.getElementById('trip-info-title').innerHTML = 'Typical weather for this period:';
+        document.getElementById('max_temp').innerHTML = 'High: ' + data[0].max_temp;
+        document.getElementById('min_temp').innerHTML = 'Low: ' + data[0].min_temp;
+        document.getElementById('weather-description').innerHTML = data[0].weather.description;
     } else {
         document.getElementById('max_temp').innerHTML = 'Date too far away for a weather forecast';
     }
@@ -59,6 +61,7 @@ function getGeoAndWeatherAndImageDataAndUpdateUI() {
                 console.log('data pixabay');
                 console.log(data);
                 document.getElementById('image').src = data.hits[0].largeImageURL;
+                document.getElementById('image').classList.add('city-image');
             });
 }
 

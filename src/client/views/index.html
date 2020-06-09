@@ -1,46 +1,50 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Travel application</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Travel application</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Shadows+Into+Light&display=swap" rel="stylesheet">
 </head>
- <body>
-<div id = "app">
-  <div class ="headline">
-    Travel all around the world
-  </div>
-  <form class="needs-validation" novalidate>
-    <div class="form-group">
-      <label for="destination">I am going to</label>
-      <input type="text" class="form-control" id="destination" aria-describedby="destinationHelp" required>
-      <div class="invalid-feedback">
-        You haven't provided your destination!
-      </div>
+
+<body>
+  <div id="app">
+    <div class="headline">
+      Travel all around the world
     </div>
-    <div class ="form-group">
-      <label for="start-date">On</label>
-      <input type="date" class="form-control" id="start-date" required>
-      <div class="invalid-feedback">
-        You haven't provided a valid date!
+    <form class="needs-validation" novalidate>
+      <div class="form-group">
+        <label for="destination">I am going to</label>
+        <input type="text" class="form-control" id="destination" aria-describedby="destinationHelp" required>
+        <div class="invalid-feedback">
+          You haven't provided your destination!
+        </div>
       </div>
-    </div>
-    <div class ="form-group">
+      <div class="form-group">
+        <label for="start-date">On</label>
+        <input type="date" class="form-control" id="start-date" required>
+        <div class="invalid-feedback">
+          You haven't provided a valid date!
+        </div>
+      </div>
+      <div class="form-group">
         <label for="end-date">I'm leaving the city on</label>
         <input type="date" class="form-control" id="end-date">
+      </div>
+      <button id="generate" class="btn btn-primary" type="submit" onclick="return Client.handleSubmit(event)">Explore</button>
+    </form>
+    <div class="results">
+      <img id="image" />
+      <div class="trip-info">
+        <h4 id="trip-info-title"></h4>
+        <div id="max_temp"></div>
+        <div id="min_temp"></div>
+        <div id="weather-description"></div>
+        <div id="countdown"></div>
+        <div id="trip-length"></div>
+      </div>
     </div>
-    <button id="generate" class="btn btn-primary" type="submit" onclick="return Client.handleSubmit(event)">Explore</button>
-  </form>
-  <div class="results">
-     <div>
-      <div id = "max_temp"></div>
-      <div id = "min_temp"></div>
-      <div id = "countdown"></div>
-      <div id = "trip-length"></div>
-      <img class="city-image" id = "image"/>
-     </div>
-   </div>
   </div>
-
 </body>
+
 </html>
