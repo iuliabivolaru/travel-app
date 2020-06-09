@@ -8,8 +8,7 @@ export {
 }
 
 
-
-// responsiveness
+// responsiveness - poate cu col-md/etc
 // add service workers
 // comment code daca e cazul
 

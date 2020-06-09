@@ -6,11 +6,11 @@ body {
 
 #app {
     display: grid;
-    grid-auto-rows: minmax(60px, auto);
+    grid-auto-rows: minmax(100px, auto);
     justify-items: center;
-    grid-template-areas: "headline headline"
-                         "form form"
-                         "results results";
+    grid-template-areas: "headline headline ."
+                         "form form form"
+                         "results results results";
     height: 100vh;
     grid-gap: 1em;
 }
@@ -47,6 +47,11 @@ button {
 
 h1 {
     font-size: 36px;
+}
+
+h5 {
+    margin-top: .5rem;
+    font-weight: 800;
 }
 
 .results {
