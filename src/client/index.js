@@ -1,17 +1,14 @@
 import { handleSubmit } from './js/weather';
-import { validateForm } from './js/formValidation';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/style.scss';
 
 export {
-    handleSubmit,
-    validateForm
+    handleSubmit
 }
 
 
 
-// implement additional functionality - add length of the trip
 // do styling - style results area;
 // responsiveness
 // add service workers

@@ -1,6 +1,5 @@
 body{
     background: #fffff8;
-    // font-family: 'Shadows Into Light', cursive;
     font-family: 'EB Garamond', serif;
     font-size: 20px;
 }
@@ -14,7 +13,6 @@ body{
                          "entry entry";
     height: 100vh;
     grid-gap: 1em;
-    // font-family: 'Oswald', sans-serif;
 }
 
 .holder{
@@ -100,38 +98,6 @@ button{
 
 h1{
     font-size: 36px;
-}
-
-textarea{
-    background:#22b2da;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
-}
-/* Reset style for HTML element on active to have no border*/
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none;
-}
-/* Style for Placeholder Text*/
-::placeholder { /* Firefox, Chrome, Opera */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
-
-} 
-  
-:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
-
-} 
-  
-::-ms-input-placeholder { /* Microsoft Edge */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
-
 }
 
 .city-image {
