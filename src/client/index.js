@@ -10,13 +10,15 @@ export {
 }
 
 
-// create other js files maybe
-// refactor - cleanup html and css - rename
+
 // implement additional functionality - add length of the trip
-// date validation - sa nu fie mai mica decat current date - de pus la loc <div id="invalid-date"></div>
-// si de repus invalid - poate!
 // do styling - style results area;
-// comment code daca e cazul
-// de specificat in readme additional feature
 // responsiveness
 // add service workers
+// comment code daca e cazul
+// de specificat in readme additional feature
+
+// refactor - cleanup html and css - rename
+// date validation - sa nu fie mai mica decat current date - de pus la loc <div id="invalid-date"></div>
+// si de repus invalid - poate!
+// create other js files maybe

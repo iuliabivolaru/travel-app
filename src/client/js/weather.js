@@ -21,6 +21,10 @@ function handleSubmit(event) {
             // document.getElementById('invalid-date').innerHTML = 'Date must be bigger than current date';
             // document.getElementById('invalid-date').classList.add('invalid-feedback');
           } else {
+            if(document.getElementById('end-date').value != '') {
+                document.getElementById('trip-length').innerHTML = datesDifferenceInDays2
+                (document.getElementById('start-date').value, document.getElementById('end-date').value);
+            }
             populateAndGetWeatherData();
           }
           form.classList.add('was-validated');
@@ -124,6 +128,12 @@ const datesDifferenceInDays = function(date) {
     const currentDate = new Date();
     const givenDate = new Date(date);
     return Math.floor((Date.UTC(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()) - Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) ) /(1000 * 60 * 60 * 24));
+}
+
+const datesDifferenceInDays2 = function(date, date2) {
+    const givenDate = new Date(date);
+    const givenDate2 = new Date(date2);
+    return Math.floor((Date.UTC(givenDate2.getFullYear(), givenDate2.getMonth(), givenDate2.getDate()) - Date.UTC(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()) ) /(1000 * 60 * 60 * 24));
 }
 
 export { handleSubmit, postWeatherAndGeoData }
