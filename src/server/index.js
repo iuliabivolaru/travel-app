@@ -48,3 +48,5 @@ app.post('/geoAndWeatherData', function postHandler(request, response) {
     console.log(receivedDataArray);
 });
 
+module.exports = app;
+
