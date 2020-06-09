@@ -1,22 +1,18 @@
-body{
+body {
     background: #fffff8;
     font-family: 'EB Garamond', serif;
     font-size: 20px;
 }
 
-#app{
+#app {
     display: grid;
     grid-auto-rows: minmax(60px, auto);
     justify-items: center;
     grid-template-areas: "headline headline"
                          "form form"
-                         "entry entry";
+                         "results results";
     height: 100vh;
     grid-gap: 1em;
-}
-
-.holder{
-
 }
 
 form {
@@ -27,39 +23,11 @@ form {
     grid-area: destination;
 }
 
-.start-date {
-    grid-area: start-date;
-}
-
-.end-date {
-    grid-area: end-date;
-}
-
-.feel {
-    grid-area: feel;
-}
-
-.entry{
+.results {
     min-width: 500px;
     background: rgba(59, 74, 107, .4);
     margin-bottom: 20px;
-    grid-area: entry;
-}
-
-#entryHolder{
-
-}
-
-#date{
-
-}
-
-#temp{
-
-}
-
-#content{
-
+    grid-area: results;
 }
 
 .headline {
@@ -67,36 +35,24 @@ form {
     font-size: 27px;
 }
 
-.title{
+.title {
     margin-bottom: 20px;
 }
 
-/*  Basic Styling To Override Default For Basic HTML Elements */
-
-input{
+input {
     display: block;
-    height: 60px;
-    width: 320px;
-    background:#22b2da;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
     border: none;
 }
 
-button{
+button {
     width: 200px;
     height: 50px;
-    background: #3b4a6b;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
     border: none;
     box-shadow: 2px 4px 5px #444;
     grid-area: button;
 }
 
-h1{
+h1 {
     font-size: 36px;
 }
 
