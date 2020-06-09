@@ -19,6 +19,7 @@ $ npm run start
 ## Usage
 
 Go to `http://localhost:8080/`.
+
 Fill in a city, a valid date, which has to be greater or equal than the current date.
 A weather forecast will be provided if the date is not further away than 16 days from the current date.
 An image of the city and the countdown until the trip will be displayed. 
