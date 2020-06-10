@@ -67,7 +67,20 @@ h5 {
     margin-left: 20px;
 }
 
-@media (max-width: 780px) {
+@media (min-width: 340px) and (max-width: 1024px) {
+    .city-image {
+        height: 70%;
+        margin-left: 25%;
+    }
+
+    .results {
+        display: block;
+    }
+
+    .trip-info {
+        margin-left: 25%; 
+    }
+
     #travel-app {
         grid-template-areas: "headline" "form" "results";
     }
@@ -76,3 +89,7 @@ h5 {
         width: 60%;
     }
 }
+
+// interval 360 - 767 poate pt modif imagine si display: block 
+// pe results in loc de flex si de vazut cum aranjez pe mijloc
+// de vazut daca pun pe clase stilul in loc de elemente
