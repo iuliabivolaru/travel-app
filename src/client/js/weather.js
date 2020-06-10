@@ -6,32 +6,36 @@ const weatherAppKey = 'ee0952e297ae4d8aa4dfdc5167564b17';
 const pixabayAppKey = '16916435-bc8568a553f5e9414319aa047';
 const pixabayBaseUrl = 'https://pixabay.com/api/?key=';
 
+const trips = [];
+let trip = {};
+
 function handleSubmit(event) {
     event.preventDefault();
     const forms = document.getElementsByClassName('needs-validation');
-    Array.prototype.filter.call(forms, function(form) {
+    // prevent submit if the form doesn't have the required fields
+    Array.prototype.filter.call(forms, function (form) {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         } else {
             getGeoAndWeatherAndImageDataAndUpdateUI();
         }
-            form.classList.add('was-validated');
+        form.classList.add('was-validated');
     });
 }
 
-function updateUIWithCountdownAndTripLengthAndWeatherInfo(data) {
+function updateUIWithCountdownAndTripLengthAndWeatherInfo(trip) {
     const startDate = document.getElementById('start-date').value;
     const endDate = document.getElementById('end-date').value;
     document.getElementById('countdown').innerHTML = datesDifferenceInDays('', startDate) + ' days until your trip';
-    if(endDate != '') {
+    if (endDate != '') {
         document.getElementById('trip-length').innerHTML = 'It\'s a ' + datesDifferenceInDays(startDate, endDate) + ' days vacation!';
     }
-    if(data[0]) {
+    if (trip.maxTemp) {
         document.getElementById('trip-info-title').innerHTML = 'Typical weather for this period:';
-        document.getElementById('max_temp').innerHTML = 'High: ' + data[0].max_temp;
-        document.getElementById('min_temp').innerHTML = 'Low: ' + data[0].min_temp;
-        document.getElementById('weather-description').innerHTML = data[0].weather.description;
+        document.getElementById('max_temp').innerHTML = 'High: ' + trip.maxTemp;
+        document.getElementById('min_temp').innerHTML = 'Low: ' + trip.minTemp;
+        document.getElementById('weather-description').innerHTML = trip.weatherDescription;
     } else {
         document.getElementById('max_temp').innerHTML = 'Date too far away for a weather forecast';
     }
@@ -46,23 +50,28 @@ function getGeoAndWeatherAndImageDataAndUpdateUI() {
             const countryName = data.geonames[0].countryName;
             getWeatherData(weatherBaseUrl, lat, lng)
                 .then(data => {
-                    updateUIWithCountdownAndTripLengthAndWeatherInfo(data);
-                    postWeatherAndGeoData('/geoAndWeatherData', 
-                        { latitude: lat,
-                          longitude: lng,
-                          country: countryName,
-                          maxTemp: data[0] ? data[0].max_temp : '',
-                          minTemp: data[0] ? data[0].min_temp : ''
+                    trip = {
+                        latitude: lat,
+                        longitude: lng,
+                        country: countryName,
+                        maxTemp: data[0] ? data[0].max_temp : '',
+                        minTemp: data[0] ? data[0].min_temp : '',
+                        weatherDescription: data[0] ? data[0].weather.description : ''
+                    }
+                    postWeatherAndGeoData('/geoAndWeatherData', trip)
+                        .finally(() => {
+                            console.log(trip);
+                            trips.push(trip);
+                            updateUIWithCountdownAndTripLengthAndWeatherInfo(trip);
+                            trip = {};
                         });
-                });          
+                });
         });
-        getPixabayData(pixabayBaseUrl, destinationCity)
-            .then(data => {
-                console.log('data pixabay');
-                console.log(data);
-                document.getElementById('image').src = data.hits[0].largeImageURL;
-                document.getElementById('image').classList.add('city-image');
-            });
+    getPixabayData(pixabayBaseUrl, destinationCity)
+        .then(data => {
+            document.getElementById('image').src = data.hits[0].largeImageURL;
+            document.getElementById('image').classList.add('city-image');
+        });
 }
 
 const getWeatherData = async (weatherBaseUrl, lat, lng) => {
@@ -71,7 +80,7 @@ const getWeatherData = async (weatherBaseUrl, lat, lng) => {
     try {
         const data = await response.json();
         return data.data.filter(element => element.datetime == startDate);
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }
@@ -81,7 +90,7 @@ const getGeoData = async (baseUrl, destinationCity) => {
     try {
         const data = await response.json();
         return data;
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }
@@ -91,7 +100,7 @@ const getPixabayData = async (pixabayBaseUrl, q) => {
     try {
         const data = await response.json();
         return data;
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }
@@ -108,15 +117,16 @@ const postWeatherAndGeoData = async (url = '', data = {}) => {
     try {
         const postedData = await response.json();
         return postedData;
-    } catch(error) {
+    } catch (error) {
         console.log("error", error);
     }
 }
 
-const datesDifferenceInDays = function(date, date2) {
+// compute difference between 2 given dates; of between a given date and the current date
+const datesDifferenceInDays = function (date, date2) {
     const givenDate = date ? new Date(date) : new Date();
     const givenDate2 = new Date(date2);
-    return Math.floor((Date.UTC(givenDate2.getFullYear(), givenDate2.getMonth(), givenDate2.getDate()) - Date.UTC(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()) ) /(1000 * 60 * 60 * 24));
+    return Math.floor((Date.UTC(givenDate2.getFullYear(), givenDate2.getMonth(), givenDate2.getDate()) - Date.UTC(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate())) / (1000 * 60 * 60 * 24));
 }
 
 export { handleSubmit, postWeatherAndGeoData }
