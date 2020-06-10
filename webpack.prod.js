@@ -28,6 +28,10 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
             },
             {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
                 test: /\.html$/,
                 loader: 'html-loader',
             },
@@ -44,7 +48,7 @@ module.exports = {
             template: "./src/client/views/index.html",
             filename: "./index.html",
         }),
-        new MiniCssExtractPlugin({ filename: '[name].css' })
-        // new WorkboxPlugin.GenerateSW()
+        new MiniCssExtractPlugin({ filename: '[name].css' }),
+        new WorkboxPlugin.GenerateSW()
     ]
 }
